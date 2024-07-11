@@ -20,7 +20,7 @@
           (let [src-path (fs/file source-dir path)
                 tgt-path (fs/file work-dir path)]
             (fs/copy src-path tgt-path))
-          (pods/load-pod pod version)))
+          (pods/resolve-pod pod version)))
       (finally
         (System/setProperty "user.home" home-dir)
         (System/setProperty "os.arch" os-arch)))))
