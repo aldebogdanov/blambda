@@ -1,1 +1,2 @@
-{:paths ["src" "resources"]}
+{:paths ["src" "resources"]
+ :dependencies {babashka/babashka.pods {:mvn/version "0.2.0"}}}
