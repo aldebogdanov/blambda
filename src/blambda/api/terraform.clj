@@ -71,7 +71,6 @@
 
 (defn write-config [{:keys [lambda-name tf-module-dir extra-tf-config extra-tf-vars target-dir]
                      :as opts}]
-  (clojure.pprint/pprint opts)
   (let [opts (assoc opts
                     :lambda-filename (format "%s.zip" lambda-name))
         lambda-layer-config (generate-config opts)
