@@ -69,7 +69,7 @@
   (run-tf-cmd! opts "terraform init")
   (run-tf-cmd! opts (format "terraform import aws_s3_bucket.artifacts %s" s3-bucket)))
 
-(defn write-config [{:keys [lambda-name tf-module-dir extra-tf-config target-dir]
+(defn write-config [{:keys [lambda-name tf-module-dir extra-tf-config extra-tf-vars target-dir]
                      :as opts}]
   (clojure.pprint/pprint opts)
   (let [opts (assoc opts
@@ -85,10 +85,11 @@
       (fs/create-dirs target-dir)
       (doseq [f extra-tf-config
               :let [filename (fs/file-name f)
-                    target (fs/file target-dir filename)]]
-        (println "Copying Terraform config" (str f))
+                    target (fs/file target-dir filename)
+                    content (selmer/render (slurp f) extra-tf-vars)]]
+        (println "Applying Terraform config" (str f))
         (fs/delete-if-exists target)
-        (fs/copy f target-dir)))
+        (spit target content)))
     (fs/create-dirs module-dir)
     (println "Writing lambda layer config:" (str config-file))
     (spit config-file lambda-layer-config)

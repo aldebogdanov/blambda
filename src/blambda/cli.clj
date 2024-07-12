@@ -37,11 +37,11 @@
     :coerce []
     :default []}
 
-   :extra-tf-opts
+   :extra-tf-vars
    {:cmds #{:terraform-write-config}
     :desc "Map of variables to use in additional Terraform files"
     :ref "<exvars>"
-    :corce {}
+    :coerce {}
     :default {}}
 
    :lambda-handler
