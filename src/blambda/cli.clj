@@ -37,6 +37,13 @@
     :coerce []
     :default []}
 
+   :extra-tf-opts
+   {:cmds #{:terraform-write-config}
+    :desc "Map of variables to use in additional Terraform files"
+    :ref "<exvars>"
+    :corce {}
+    :default {}}
+
    :lambda-handler
    {:cmds #{:terraform-write-config}
     :desc "Function used to handle requests (example: hello/handler)"
