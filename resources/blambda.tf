@@ -78,6 +78,7 @@ module "deps" {
 }
 {% endif %}
 
+{% if not use-custom-tf-resources %}
 resource "aws_lambda_function" "lambda" {
   depends_on = [aws_cloudwatch_log_group.lambda]
 
@@ -160,4 +161,5 @@ resource "aws_iam_role_policy_attachment" "lambda" {
   role = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.lambda.arn
 }
+{% endif %}
 {% endif %}

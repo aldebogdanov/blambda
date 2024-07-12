@@ -44,6 +44,11 @@
     :coerce {}
     :default {}}
 
+   :use-custom-tf-resources
+   {:cmds #{:terraform-write-config}
+    :desc "Don't declare default lambda, log group, IAM role, and policy "
+    :coerce :boolean}
+
    :lambda-handler
    {:cmds #{:terraform-write-config}
     :desc "Function used to handle requests (example: hello/handler)"
