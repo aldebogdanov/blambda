@@ -71,6 +71,7 @@
 
 (defn write-config [{:keys [lambda-name tf-module-dir extra-tf-config target-dir]
                      :as opts}]
+  (println "OPTS:\t" opts)
   (let [opts (assoc opts
                     :lambda-filename (format "%s.zip" lambda-name))
         lambda-layer-config (generate-config opts)
