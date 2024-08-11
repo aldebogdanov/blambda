@@ -85,7 +85,10 @@
       (doseq [f extra-tf-config
               :let [filename (fs/file-name f)
                     target (fs/file target-dir filename)
-                    content (selmer/render (slurp f) (assoc extra-tf-vars :lambda-name lambda-name))]]
+                    content (selmer/render (slurp f) 
+                                           (assoc extra-tf-vars 
+                                                  :lambda-name lambda-name
+                                                  :tf-module-dir tf-module-dir))]]
         (println "Applying Terraform config" (str f))
         (fs/delete-if-exists target)
         (spit target content)))
