@@ -33,6 +33,7 @@ variable "lambda_timeout" {}
 variable "lambda_s3_key" {}
 {% endif %}
 
+{% if not use-custom-tf-resources %}
 {% if use-s3 %}
 resource "aws_s3_bucket" "artifacts" {
   bucket = var.s3_bucket
@@ -78,7 +79,6 @@ module "deps" {
 }
 {% endif %}
 
-{% if not use-custom-tf-resources %}
 resource "aws_lambda_function" "lambda" {
   depends_on = [aws_cloudwatch_log_group.lambda]
 
