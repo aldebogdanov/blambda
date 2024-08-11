@@ -9,6 +9,7 @@ variable "s3_bucket" {}
 variable "s3_key" {}
 {% endif %}
 
+{% if not use-custom-tf-resources %}
 resource "aws_lambda_layer_version" "layer" {
   layer_name = var.layer_name
   source_code_hash = filebase64sha256(var.filename)
@@ -36,3 +37,4 @@ resource "aws_s3_object" "object" {
 output "arn" {
   value = aws_lambda_layer_version.layer.arn
 }
+{% endif %}
