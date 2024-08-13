@@ -11,9 +11,11 @@
 
 (defn fetch-pods [{:keys [bb-arch source-dir work-dir] :as opts} pods]
   (let [home-dir (System/getProperty "user.home")
+        os-name (System/getProperty "os.name")
         os-arch (System/getProperty "os.arch")]
     (try
       (System/setProperty "user.home" work-dir)
+      (System/setProperty "os.name" "Linux")
       (System/setProperty "os.arch" (if (= bb-arch "arm64") "aarch64" "amd64"))
       (doseq [[pod {:keys [path version]}] pods]
         (if path
@@ -23,6 +25,7 @@
           (pods/load-pod pod version)))
       (finally
         (System/setProperty "user.home" home-dir)
+        (System/setProperty "os.name" os-name) 
         (System/setProperty "os.arch" os-arch)))))
 
 (defn build-deps-layer
